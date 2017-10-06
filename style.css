@@ -78,14 +78,14 @@ button.btn {
 
 #sidebtn1.moveUp, #sidebtn2.moveUp {
   top: 650px;
-  transition: top 0.5s linear; /*take this left value and transition to it to
+  transition: top 1s linear; /*take this left value and transition to it to
   the left value of sidebar.visible when transition exists. We will add/remove this
   with JS*/
 }
 
 #start.changeStart {
 border-radius: 50%;
-transition: border-radius .5s linear;
+transition: border-radius 1s linear;
 }
 
 @keyframes fadeOut {
@@ -96,3 +96,20 @@ transition: border-radius .5s linear;
     0%   {opacity: .7;}
     100% {opacity: 1;}
 }
+/*--------------------End Animations Stuff----------------------*/
+
+
+
+/*--------------------Font Awesome Stuff-------------------------*/
+
+/*--------------------End Font Awesome Stuff---------------------*/
+
+
+
+/*------------------Rock Paper Scissors Stuff------------------*/
+.rps{
+  position: absolute;
+}
+
+/*------------------Rock Paper Scissors Stuff------------------*/
+
