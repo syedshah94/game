@@ -1,0 +1,89 @@
+body{
+  margin: 0px;
+  background-color: #EEEEEE;
+}
+
+#arcade {
+  height: 800px;
+  width: 70%;
+  background: #113A52;
+  position: relative;
+  left: 15%;
+  border-radius: 20px;
+}
+
+.window{
+  height: 700px;
+  width: 80%;
+
+  position: relative;
+  left: 10%;
+  top: 2%;
+  border: 1px solid black;
+  border-radius: 5%;
+  background-image: url(https://media.giphy.com/media/l4Ki0CcXbciFPoC2s/giphy.gif);
+}
+
+/*--------------------Start Button Stuff--------------------*/
+/*Reference: http://callmenick.com/post/stylish-css-buttons*/
+button {
+  display: inline-block;
+  margin: 0 10px 0 0;
+  padding: 15px 45px;
+  font-size: 48px;
+  font-family: "Bitter",serif;
+  line-height: 1.8;
+  appearance: none;
+  box-shadow: none;
+  border-radius: 0;
+
+  position: relative;
+  left: 20%;
+  top: 650px;
+}
+
+button:focus {
+  outline: none
+}
+
+.press button {
+  color: #fff;
+  background-color: #6496c8;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px #27496d;
+}
+
+.press button:hover,
+.press button.hover {
+  background-color: #417cb8
+}
+
+.press button:active,
+.press button.active {
+  background-color: #417cb8;
+  box-shadow: 0 5px #27496d;
+  transform: translateY(5px);
+}
+button.btn {
+  border-radius: 50%;
+  background-color: #FF5353;
+  position: relative;
+  top: 850px; /*Move to 650px*/
+}
+/*---------------------End Button Stuff----------------------*/
+
+/*---------------------Animations Stuff----------------------*/
+
+#sidebtn1.moveUp, #sidebtn2.moveUp {
+  top: 650px;
+  transition: top 0.5s linear; /*take this left value and transition to it to
+  the left value of sidebar.visible when transition exists. We will add/remove this
+  with JS*/
+}
+
+#start.changeStart {
+border-radius: 50%;
+transition: border-radius .5s linear;
+}
+
