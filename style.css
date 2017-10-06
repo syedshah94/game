@@ -21,6 +21,7 @@ body{
   top: 2%;
   border: 1px solid black;
   border-radius: 5%;
+  background-color: #0B42FF;
   background-image: url(https://media.giphy.com/media/l4Ki0CcXbciFPoC2s/giphy.gif);
 }
 
@@ -87,3 +88,11 @@ border-radius: 50%;
 transition: border-radius .5s linear;
 }
 
+@keyframes fadeOut {
+    0%   {opacity: 1;}
+    100% {opacity: 0;}
+}
+@keyframes fadeIn {
+    0%   {opacity: .7;}
+    100% {opacity: 1;}
+}
