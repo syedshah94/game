@@ -25,6 +25,24 @@ body{
   background-image: url(https://media.giphy.com/media/l4Ki0CcXbciFPoC2s/giphy.gif);
 }
 
+/*------------------Rock Paper Scissors Stuff------------------*/
+.rps{
+  position: absolute;
+  width: 100%;
+}
+
+#ai {
+  position: absolute;
+  left: 30%;
+}
+#player {
+  position: absolute;
+  left: 10%;
+  top: 350px;
+}
+
+/*------------------Rock Paper Scissors Stuff------------------*/
+
 /*--------------------Start Button Stuff--------------------*/
 /*Reference: http://callmenick.com/post/stylish-css-buttons*/
 button {
@@ -97,19 +115,4 @@ transition: border-radius 1s linear;
     100% {opacity: 1;}
 }
 /*--------------------End Animations Stuff----------------------*/
-
-
-
-/*--------------------Font Awesome Stuff-------------------------*/
-
-/*--------------------End Font Awesome Stuff---------------------*/
-
-
-
-/*------------------Rock Paper Scissors Stuff------------------*/
-.rps{
-  position: absolute;
-}
-
-/*------------------Rock Paper Scissors Stuff------------------*/
 
