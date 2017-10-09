@@ -2,6 +2,8 @@ let toBeStarted = true; //This will allow the start button to run once
 let win = true;
 let rps = Minigame('rps', 0); //Rock, Papers, Scissors
 let success = 0; //number of successful wins
+let timer = 5;
+let colors = ["#EFC94C", "#FF9047", "#FF7772", "#C5EFF7"]
 
 function removeBg() {
   $(".window").css({
@@ -9,6 +11,15 @@ function removeBg() {
     "background": "#fafafa",
     "animation": "fadeIn 1s linear"
   });
+}
+
+function winScreen() {
+  $(".window").css({
+    "background": colors[getRandomIntInclusive(0, colors.length - 1)]
+  });
+  $("#result").text(`Success: ${success}`);
+  // ^Use setInterval which will run so long a variable is true
+  $("#report").text("WIN"); //Add lose response
 }
 
 //Will use this to randomly cycle through games based on their id
@@ -23,6 +34,14 @@ function Minigame(name, id) {
   this.id = id;
 }
 
+function countdown(timer) {
+  setInterval(function() {
+    if(timer >= 0) {
+      $("#timer").text(`Timer: ${timer}`);
+      timer = timer - 1;
+    }
+  }, 1000);
+}
 
 function play_rps(){
   if(toBeStarted == true){
@@ -68,14 +87,19 @@ function play_rps(){
           }
           else if ($("#ai i").first().text() == "SCISSORS"){
             console.log("You Win");
+            success++; //Increment success
+            console.log("Success: " + success);
+            winScreen();
           }
         }
-
          //If Computer chose PAPER
         if ($("#player i").first().text() == "PAPER") {
           console.log("PAPER");
           if ($("#ai i").first().text() == "ROCK") {
             console.log("You Win");
+            success++;
+            console.log("Success: " + success);
+            winScreen();
           }
           else if ($("#ai i").first().text() == "PAPER"){
             console.log("Draw");
@@ -84,7 +108,6 @@ function play_rps(){
             console.log("You Lose");
           }
         }
-
          //If Computer chose SCISSORS
         if ($("#player i").first().text() == "SCISSORS") {
           console.log("SCISSORS");
@@ -93,21 +116,19 @@ function play_rps(){
           }
           else if ($("#ai i").first().text() == "PAPER"){
             console.log("You Win");
+            success++;
+            console.log("Success: " + success);
+            winScreen();
           }
           else if ($("#ai i").first().text() == "SCISSORS"){
             console.log("Draw");
           }
         }
-
       }
-
     });
-    toBeStarted = false; //prevent START button from creating anything
+    toBeStarted = false; //prevent START button from creating anything *Need this as last line for each game*
   }
 };
-
-//Create a playOnce(game) function which takes in a game and plays it once
-// put under a condition that says if not played, play now.
 
 
 
@@ -129,8 +150,11 @@ $(document).ready(function() {
       $(this).text('S');
       $("button").css({"left": "25%"});
       removeBg();
+      countdown(timer);
 
-      //RPS:
+      //Future plan: Call a function to randomly select which minigame to play
+
+      //RPS Test:
       play_rps();
 
    });
@@ -143,6 +167,3 @@ $(document).ready(function() {
   //while win = true: keep playing minigame(s), else go to lose screen
 
 });
-
-// NOTES:
-//TESTING AI Move example (RPS) : $("#rps0 i").first().text()
