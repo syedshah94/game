@@ -43,7 +43,6 @@ function countdown(timer) {
     if(timer >= 0) {
       $("#timer").text(`Timer: ${timer}`);
       timer = timer - 1;
-      return timer;
     }
     else{
       console.log("Out of time");
@@ -152,11 +151,27 @@ rps.playGame = function() {
       }
     });
     toBeStarted = false; //prevent START button from creating anything *Need this as last line for each game, for now*
+
+    this.endGame(2);
   }
 };
 
-//Clear up screen from RPS game:
-rps.endGame = function () {}
+//Clear up screen from RPS game (after an interval):
+rps.endGame = function (interval) {
+  let runAfterThisManyMs = (timer + interval) * 1000;
+  let removeContent = setInterval(function (interval) {
+    if(interval >= 0) {
+      console.log(interval);
+      interval = interval - 1;
+    }
+    else{
+      $("#ai .hide").remove();
+      $("#player .hide").remove();
+      $("#report").text("");
+      clearInterval(removeContent);
+    }
+  }, runAfterThisManyMs);
+}
 
 
 
