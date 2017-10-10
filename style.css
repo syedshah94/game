@@ -43,7 +43,7 @@ body{
 .timer {
   position: absolute;
   top: 5%;
-  left: 80%;
+  left:40%;
   font-size: 20pt;
 }
 #report {
@@ -103,6 +103,34 @@ button.btn {
   top: 850px; /*Move to 650px*/
 }
 /*---------------------End Button Stuff----------------------*/
+
+
+/*---------------------Lose Screen----------------------*/
+#loseScreen{
+  position: absolute;
+  top: -105px;
+  left: 15%;
+}
+
+#loseScreen.loseImg {
+  height: 560px;
+  width: 560px;
+  background-image: url(https://media.giphy.com/media/26n6N1IeaxFNSORrO/giphy.gif);
+}
+
+#loseScreen {
+   color: red;
+   font-size: 20pt;
+}
+
+.scoreboard {
+  position: absolute;
+  top: 100%;
+  left: 40%;
+  /*animation: fadeIn 1s;*/
+}
+/*--------------------- Lose Screen ----------------------*/
+
 
 /*---------------------Animations Stuff----------------------*/
 

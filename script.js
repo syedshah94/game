@@ -12,14 +12,22 @@ let colors = ["#EFC94C", "#FF9047", "#FF7772", "#C5EFF7"];
 function Minigame(name) {
   this.name = name;
   this.playGame = function() {}
-  this.end = function() {}
+  this.endGame = function() {}
+}
+
+function playRandomGame() {
+  let myInterval = setInterval() {
+    let randomGameIndex = getRandomIntInclusive(0,0);
+    gamesArr[randomGameIndex].playGame();
+  }
+
 }
 
 function removeBg() {
   $(".window").css({
     "background-image": "url()",
-    "background": "#fafafa",
-    "animation": "fadeIn 1s linear"
+    "background": "#FFC898",
+    "transition": "background 1s"
   });
 }
 
@@ -31,6 +39,12 @@ function winScreen() {
   $("#report").text("WIN"); //Add draw/lose response where appropriate.
 }
 
+function loseScreen() {
+  $("#loseScreen").addClass('loseImg');
+  $(".window").css({"background-color": "rgba(9,18,35,1)"});
+  $("#loseScreen .scoreboard").text(`Score: ${success}`);
+}
+
 //Will use this to randomly cycle through games based on their id
 function getRandomIntInclusive(min,max) {
   min = Math.ceil(min);
@@ -39,14 +53,15 @@ function getRandomIntInclusive(min,max) {
 }
 
 function countdown(timer) {
-  let myTimer = setInterval(function () {
+  let myInterval = setInterval(function () {
     if(timer >= 0) {
       $("#timer").text(`Timer: ${timer}`);
       timer = timer - 1;
     }
     else{
       console.log("Out of time");
-      clearInterval(myTimer);
+      clearInterval(myInterval);
+
     }
   }, 1000);
 }
@@ -102,6 +117,7 @@ rps.playGame = function() {
           else if ($("#ai i").first().text() == "PAPER"){
             console.log("You Lose");
             $("#report").text("LOSE");
+            win = false;
           }
           else if ($("#ai i").first().text() == "SCISSORS"){
             console.log("You Win");
@@ -127,6 +143,7 @@ rps.playGame = function() {
           else if ($("#ai i").first().text() == "SCISSORS"){
             console.log("You Lose");
             $("#report").text("LOSE");
+            win = false;
           }
         }
          //If Player chose SCISSORS
@@ -136,6 +153,7 @@ rps.playGame = function() {
           if ($("#ai i").first().text() == "ROCK") {
             console.log("You Lose");
             $("#report").text("LOSE");
+            win = false;
           }
           else if ($("#ai i").first().text() == "PAPER"){
             console.log("You Win");
@@ -150,9 +168,10 @@ rps.playGame = function() {
         }
       }
     });
-    toBeStarted = false; //prevent START button from creating anything *Need this as last line for each game, for now*
 
     this.endGame(2);
+
+    toBeStarted = false; //prevent START button from creating anything
   }
 };
 
@@ -160,7 +179,7 @@ rps.playGame = function() {
 rps.endGame = function (interval) {
   let runAfterThisManyMs = (timer + interval) * 1000;
   let removeContent = setInterval(function (interval) {
-    if(interval >= 0) {
+    if(interval > 0) {
       console.log(interval);
       interval = interval - 1;
     }
@@ -170,17 +189,17 @@ rps.endGame = function (interval) {
       $("#report").text("");
       clearInterval(removeContent);
     }
+    //Call playRandomGame() here
+
   }, runAfterThisManyMs);
 }
+// ------------------- End of RPS ---------------------
 
 
-
-//-------- Game essentially starts here------------
+//----------------- Game essentially starts here-----------------------//
 $(document).ready(function() {
   //hide game(s) and content:
   $(".rps .hide").hide();
-  // $(".rpsDisplay").hide();
-  //^Might be uneccessary (remove? --Update: 10/10/2017 10:27am Syed)
 
 
 
@@ -194,11 +213,16 @@ $(document).ready(function() {
       $(this).text('S');
       $("button").css({"left": "25%"});
       removeBg();
-      // countdown(timer);
 
-      if (win == true) {
-        gamesArr[getRandomIntInclusive(0,0)].playGame(); //play rps
-      }
+      //Play random game, if won, play another, else lose screen:
+      playRandomGame();
+
+      // removeBg();
+      // let randomGameIndex = getRandomIntInclusive(0,0);
+
+      // if (win == true) {
+      //   gamesArr[randomGameIndex].playGame(); //play rps
+      // }
 
 
    });
