@@ -4,15 +4,15 @@ Last Update: 10/10/2017
 */
 
 let toBeStarted = true; //This will allow the start button to run once
-let win = true;
+let win = true; //Keep playin while winning (default is win, so run on default)
 let success = 0; //number of successful wins
-let timer = 5;
+let timer = 2;
 let colors = ["#EFC94C", "#FF9047", "#FF7772", "#C5EFF7"];
 
 function Minigame(name) {
   this.name = name;
   this.playGame = function() {}
-  this.endGame = function() {}
+  this.end = function() {}
 }
 
 function removeBg() {
@@ -28,9 +28,7 @@ function winScreen() {
     "background": colors[getRandomIntInclusive(0, colors.length - 1)]
   });
   $("#result").text(`Success: ${success}`);
-  $("#report").text("WIN"); //Add win/draw/lose response where appropriate.
-
-  //Restart Screen and game:
+  $("#report").text("WIN"); //Add draw/lose response where appropriate.
 }
 
 //Will use this to randomly cycle through games based on their id
@@ -45,12 +43,13 @@ function countdown(timer) {
     if(timer >= 0) {
       $("#timer").text(`Timer: ${timer}`);
       timer = timer - 1;
+      return timer;
     }
     else{
       console.log("Out of time");
+      clearInterval(myTimer);
     }
   }, 1000);
-  // if (timer < 1) {clearInterval(myTimer);}
 }
 
 //-------------- OOP ---------------------------
@@ -64,6 +63,9 @@ rps.playGame = function() {
     $(`#rps${i}`).clone().appendTo('#ai'); //prints out random computer move
     console.log("play_rps worked");
     $("#ai .hide").show(); //reveals computer move (after using .clone() )
+
+    // Timer handling:
+    countdown(timer); //Game runs while timer not at zero
 
     $(document).keydown(function playerMoveRPS(e) {
       while (playerTurn) {
@@ -149,15 +151,16 @@ rps.playGame = function() {
         }
       }
     });
-    toBeStarted = false; //prevent START button from creating anything *Need this as last line for each game*
+    toBeStarted = false; //prevent START button from creating anything *Need this as last line for each game, for now*
   }
 };
 
-function rps.endGame() {}
+//Clear up screen from RPS game:
+rps.endGame = function () {}
 
 
 
-//-------- Code essentiall starts here------------
+//-------- Game essentially starts here------------
 $(document).ready(function() {
   //hide game(s) and content:
   $(".rps .hide").hide();
@@ -176,10 +179,12 @@ $(document).ready(function() {
       $(this).text('S');
       $("button").css({"left": "25%"});
       removeBg();
-      countdown(timer);
+      // countdown(timer);
 
-      //Future plan: Call a function to randomly select which minigame to play
-      gamesArr[getRandomIntInclusive(0,0)].playGame(); //play rps
+      if (win == true) {
+        gamesArr[getRandomIntInclusive(0,0)].playGame(); //play rps
+      }
+
 
    });
 
