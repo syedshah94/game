@@ -41,3 +41,10 @@ If time permits:
 ## Links and Resources
 
 (Anything you've looked up so far or are thinking about using.)
+
+## Skills Used:
+HTML/CSS/JS and JQuery
+-Recursion
+-Intervals
+-Objects (May remove)
+-Good coding practices (Comments, good names, function explanations)

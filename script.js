@@ -1,9 +1,19 @@
+/*
+Created By Syed Shah
+Last Update: 10/10/2017
+*/
+
 let toBeStarted = true; //This will allow the start button to run once
 let win = true;
-let rps = Minigame('rps', 0); //Rock, Papers, Scissors
 let success = 0; //number of successful wins
 let timer = 5;
-let colors = ["#EFC94C", "#FF9047", "#FF7772", "#C5EFF7"]
+let colors = ["#EFC94C", "#FF9047", "#FF7772", "#C5EFF7"];
+
+function Minigame(name) {
+  this.name = name;
+  this.playGame = function() {}
+  this.endGame = function() {}
+}
 
 function removeBg() {
   $(".window").css({
@@ -18,8 +28,9 @@ function winScreen() {
     "background": colors[getRandomIntInclusive(0, colors.length - 1)]
   });
   $("#result").text(`Success: ${success}`);
-  // ^Use setInterval which will run so long a variable is true
-  $("#report").text("WIN"); //Add lose response
+  $("#report").text("WIN"); //Add win/draw/lose response where appropriate.
+
+  //Restart Screen and game:
 }
 
 //Will use this to randomly cycle through games based on their id
@@ -29,21 +40,24 @@ function getRandomIntInclusive(min,max) {
   return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
 
-function Minigame(name, id) {
-  this.name = name;
-  this.id = id;
-}
-
 function countdown(timer) {
-  setInterval(function() {
+  let myTimer = setInterval(function () {
     if(timer >= 0) {
       $("#timer").text(`Timer: ${timer}`);
       timer = timer - 1;
     }
+    else{
+      console.log("Out of time");
+    }
   }, 1000);
+  // if (timer < 1) {clearInterval(myTimer);}
 }
 
-function play_rps(){
+//-------------- OOP ---------------------------
+let rps = new Minigame('rps'); //Rock, Papers, Scissors
+let gamesArr = [rps];
+
+rps.playGame = function() {
   if(toBeStarted == true){
     let i = getRandomIntInclusive(0,2); //get random value from [0,2]
     let playerTurn = true; //give player chance to do something
@@ -76,14 +90,17 @@ function play_rps(){
         playerTurn = false; //end of player turn
 
         //Game Logic:
-        //If Computer chose ROCK
+        //If Player chose ROCK
         if ($("#player i").first().text() == "ROCK") {
           console.log("ROCK");
+          //Computer Options Below:
           if ($("#ai i").first().text() == "ROCK") {
             console.log("Draw");
+            $("#report").text("DRAW");
           }
           else if ($("#ai i").first().text() == "PAPER"){
             console.log("You Lose");
+            $("#report").text("LOSE");
           }
           else if ($("#ai i").first().text() == "SCISSORS"){
             console.log("You Win");
@@ -92,9 +109,10 @@ function play_rps(){
             winScreen();
           }
         }
-         //If Computer chose PAPER
+         //If Player chose PAPER
         if ($("#player i").first().text() == "PAPER") {
           console.log("PAPER");
+          //Computer Options Below:
           if ($("#ai i").first().text() == "ROCK") {
             console.log("You Win");
             success++;
@@ -103,16 +121,20 @@ function play_rps(){
           }
           else if ($("#ai i").first().text() == "PAPER"){
             console.log("Draw");
+            $("#report").text("DRAW");
           }
           else if ($("#ai i").first().text() == "SCISSORS"){
             console.log("You Lose");
+            $("#report").text("LOSE");
           }
         }
-         //If Computer chose SCISSORS
+         //If Player chose SCISSORS
         if ($("#player i").first().text() == "SCISSORS") {
           console.log("SCISSORS");
+          //Computer Options Below:
           if ($("#ai i").first().text() == "ROCK") {
             console.log("You Lose");
+            $("#report").text("LOSE");
           }
           else if ($("#ai i").first().text() == "PAPER"){
             console.log("You Win");
@@ -122,6 +144,7 @@ function play_rps(){
           }
           else if ($("#ai i").first().text() == "SCISSORS"){
             console.log("Draw");
+            $("#report").text("DRAW");
           }
         }
       }
@@ -130,13 +153,16 @@ function play_rps(){
   }
 };
 
+function rps.endGame() {}
+
 
 
 //-------- Code essentiall starts here------------
 $(document).ready(function() {
   //hide game(s) and content:
   $(".rps .hide").hide();
-  $(".rpsDisplay").hide();
+  // $(".rpsDisplay").hide();
+  //^Might be uneccessary (remove? --Update: 10/10/2017 10:27am Syed)
 
 
 
@@ -153,9 +179,7 @@ $(document).ready(function() {
       countdown(timer);
 
       //Future plan: Call a function to randomly select which minigame to play
-
-      //RPS Test:
-      play_rps();
+      gamesArr[getRandomIntInclusive(0,0)].playGame(); //play rps
 
    });
 
