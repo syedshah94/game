@@ -2,8 +2,6 @@
 Created By Syed Shah
 Last Update: 10/10/2017
 */
-
-let toBeStarted = true; //This will allow the start button to run once
 let win = true; //Keep playin while winning (default is win, so run on default)
 let success = 0; //number of successful wins
 let timer = 3;
@@ -74,7 +72,7 @@ let rps = new Minigame('rps'); //Rock, Papers, Scissors
 let gamesArr = [rps];
 
 rps.playGame = function() {
-  if(toBeStarted == true){
+  {
     let i = getRandomIntInclusive(0,2); //get random value from [0,2]
     let playerTurn = true; //give player chance to do something
     $(`#rps${i}`).clone().appendTo('#ai'); //prints out random computer move
@@ -85,7 +83,7 @@ rps.playGame = function() {
     countdown(timer); //Game runs while timer not at zero
 
     $(document).keydown(function playerMoveRPS(e) {
-      while (playerTurn) {
+      if (playerTurn) { //Condition prevents from keydown() being used more than once
         if (e.which == 65) {
           console.log("A pressed");
           $("#rps0").clone().appendTo('#player');
@@ -107,83 +105,79 @@ rps.playGame = function() {
             A, S, or D and therefore make this keydown() obsolete*/
         }
         playerTurn = false; //end of player turn
-
-        //Game Logic:
-        //If Player chose ROCK
-        if ($("#player i").first().text() == "ROCK") {
-          console.log("ROCK");
-          //Computer Options Below:
-          if ($("#ai i").first().text() == "ROCK") {
-            console.log("Draw");
-            $("#report").text("DRAW");
-            // stopInterval();
-          }
-          else if ($("#ai i").first().text() == "PAPER"){
-            console.log("You Lose");
-            $("#report").text("LOSE");
-            // stopInterval();
-            win = false;
-          }
-          else if ($("#ai i").first().text() == "SCISSORS"){
-            console.log("You Win");
-            success++; //Increment success
-            console.log("Success: " + success);
-            // stopInterval();
-            winScreen();
-          }
+      }
+      //Game Logic:
+      //If Player chose ROCK
+      if ($("#player i").first().text() == "ROCK") {
+        console.log("ROCK");
+        //Computer Options Below:
+        if ($("#ai i").first().text() == "ROCK") {
+          console.log("Draw");
+          $("#report").text("DRAW");
+          // stopInterval();
         }
-         //If Player chose PAPER
-        if ($("#player i").first().text() == "PAPER") {
-          console.log("PAPER");
-          //Computer Options Below:
-          if ($("#ai i").first().text() == "SCISSORS") {
-            console.log("You Lose");
-            $("#report").text("LOSE");
-            // stopInterval();
-            win = false;
-          }
-          else if ($("#ai i").first().text() == "PAPER"){
-            console.log("Draw");
-            $("#report").text("DRAW");
-            // stopInterval();
-          }
-          else if ($("#ai i").first().text() == "ROCK"){
-            console.log("You Win");
-            console.log("Success: " + success);
-            success++;
-            // stopInterval();
-            winScreen();
-          }
+        else if ($("#ai i").first().text() == "PAPER"){
+          console.log("You Lose");
+          $("#report").text("LOSE");
+          // stopInterval();
+          win = false;
         }
-         //If Player chose SCISSORS
-        if ($("#player i").first().text() == "SCISSORS") {
-          console.log("SCISSORS");
-          //Computer Options Below:
-          if ($("#ai i").first().text() == "ROCK") {
-            console.log("You Lose");
-            $("#report").text("LOSE");
-            win = false;
-            // stopInterval();
-          }
-          else if ($("#ai i").first().text() == "PAPER"){
-            console.log("You Win");
-            success++;
-            console.log("Success: " + success);
-            winScreen();
-            // stopInterval();
-          }
-          else if ($("#ai i").first().text() == "SCISSORS"){
-            console.log("Draw");
-            $("#report").text("DRAW");
-            // stopInterval();
-          }
+        else if ($("#ai i").first().text() == "SCISSORS"){
+          console.log("You Win");
+          success++; //Increment success
+          console.log("Success: " + success);
+          // stopInterval();
+          winScreen();
+        }
+      }
+       //If Player chose PAPER
+      if ($("#player i").first().text() == "PAPER") {
+        console.log("PAPER");
+        //Computer Options Below:
+        if ($("#ai i").first().text() == "SCISSORS") {
+          console.log("You Lose");
+          $("#report").text("LOSE");
+          // stopInterval();
+          win = false;
+        }
+        else if ($("#ai i").first().text() == "PAPER"){
+          console.log("Draw");
+          $("#report").text("DRAW");
+          // stopInterval();
+        }
+        else if ($("#ai i").first().text() == "ROCK"){
+          console.log("You Win");
+          console.log("Success: " + success);
+          success++;
+          // stopInterval();
+          winScreen();
+        }
+      }
+       //If Player chose SCISSORS
+      if ($("#player i").first().text() == "SCISSORS") {
+        console.log("SCISSORS");
+        //Computer Options Below:
+        if ($("#ai i").first().text() == "ROCK") {
+          console.log("You Lose");
+          $("#report").text("LOSE");
+          win = false;
+          // stopInterval();
+        }
+        else if ($("#ai i").first().text() == "PAPER"){
+          console.log("You Win");
+          success++;
+          console.log("Success: " + success);
+          winScreen();
+          // stopInterval();
+        }
+        else if ($("#ai i").first().text() == "SCISSORS"){
+          console.log("Draw");
+          $("#report").text("DRAW");
+          // stopInterval();
         }
       }
     });
-
     this.endGame(2);
-
-    toBeStarted = false; //prevent START button from creating anything
   }
 };
 
@@ -221,17 +215,18 @@ $(document).ready(function() {
   //Unhide necessary content game
   //select game based on id and random value
   $('#start').click(function() {
-      $('#sidebtn1').addClass('moveUp');
-      $('#sidebtn2').addClass('moveUp')
-      $(this).addClass('changeStart');
-      $(this).text('S');
-      $("button").css({"left": "25%"});
-      removeBg();
+    $("#start").off("click");
 
-      //Play random game, if won, play another, else lose screen:
-      playRandomGame();
+    $('#sidebtn1').addClass('moveUp');
+    $('#sidebtn2').addClass('moveUp')
+    $(this).addClass('changeStart');
+    $(this).text('S');
+    $("button").css({"left": "25%"});
+    removeBg();
 
-   });
+    //Play random game, if won, play another, else lose screen:
+    playRandomGame();
+  });
 
 
 
