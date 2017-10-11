@@ -229,14 +229,6 @@ $(document).ready(function() {
       //Play random game, if won, play another, else lose screen:
       playRandomGame();
 
-      // removeBg();
-      // let randomGameIndex = getRandomIntInclusive(0,0);
-
-      // if (win == true) {
-      //   gamesArr[randomGameIndex].playGame(); //play rps
-      // }
-
-
    });
 
 
