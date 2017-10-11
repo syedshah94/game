@@ -199,6 +199,9 @@ rps.endGame = function (interval) {
     if (win == true) {
         playRandomGame();
       }
+    else if(win == false) {
+      loseScreen();
+    }
   }, runAfterThisManyMs);
 }
 // ------------------- End of RPS ---------------------
