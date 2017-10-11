@@ -7,6 +7,7 @@ let success = 0; //number of successful wins
 let timer = 3;
 let colors = ["#EFC94C", "#FF9047", "#FF7772", "#C5EFF7"];
 let myInterval;
+let gamesArr = new Array();
 
 function Minigame(name) {
   this.name = name;
@@ -15,9 +16,8 @@ function Minigame(name) {
 }
 
 function playRandomGame() {
-  let randomGameIndex = getRandomIntInclusive(0,0);
+  let randomGameIndex = getRandomIntInclusive(0, gamesArr.length-1);
   gamesArr[randomGameIndex].playGame();
-  // if (win == true){return playRandomGame();}
 }
 
 function removeBg() {
@@ -73,7 +73,31 @@ function countdown(timer) {
 
 //-------------- OOP ---------------------------
 let rps = new Minigame('rps'); //Rock, Papers, Scissors
-let gamesArr = [rps];
+let dontPress = new Minigame('dontPress'); //Rock, Papers, Scissors
+gamesArr.push(rps);
+gamesArr.push(dontPress);
+
+// ----------------------- Dont Press ------------------
+dontPress.playGame = function () {
+  $(".dontTouch .hide").show();
+  countdown(timer); //Game runs while timer not at zero
+
+  $(".dontTouch .hide").click(function(event) {
+    win = false;
+  });
+  this.endGame();
+}
+
+dontPress.endGame = function () {
+  $(".dontTouch .hide").hide();
+  if (win == true) {
+      playRandomGame();
+  }
+  else if(win == false) {
+    loseScreen();
+  }
+}
+// ----------------------- End - Dont Press ------------------
 
 rps.playGame = function() {
   {
@@ -172,7 +196,7 @@ rps.playGame = function() {
         }
       }
     });
-    this.endGame(2);
+    this.endGame(1);
   }
 };
 
@@ -190,16 +214,19 @@ rps.endGame = function (interval) {
       $("#report").text("");
       clearInterval(removeContent);
     }
-    //Call playRandomGame() here
+
     if (win == true) {
-        playRandomGame();
-      }
+      playRandomGame();
+    }
     else if(win == false) {
       loseScreen();
     }
   }, runAfterThisManyMs);
 }
 // ------------------- End of RPS ---------------------
+
+
+
 
 
 //----------------- Game essentially starts here-----------------------//
@@ -219,7 +246,6 @@ $(document).ready(function() {
     $('#sidebtn2').addClass('moveUp')
     $(this).addClass('changeStart');
     $(this).text('S');
-    $("button").css({"left": "25%"});
     removeBg();
 
     //Play random game, if won, play another, else lose screen:
