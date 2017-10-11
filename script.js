@@ -6,8 +6,9 @@ Last Update: 10/10/2017
 let toBeStarted = true; //This will allow the start button to run once
 let win = true; //Keep playin while winning (default is win, so run on default)
 let success = 0; //number of successful wins
-let timer = 2;
+let timer = 3;
 let colors = ["#EFC94C", "#FF9047", "#FF7772", "#C5EFF7"];
+let myInterval;
 
 function Minigame(name) {
   this.name = name;
@@ -16,11 +17,8 @@ function Minigame(name) {
 }
 
 function playRandomGame() {
-  let myInterval = setInterval() {
-    let randomGameIndex = getRandomIntInclusive(0,0);
-    gamesArr[randomGameIndex].playGame();
-  }
-
+  let randomGameIndex = getRandomIntInclusive(0,0);
+  gamesArr[randomGameIndex].playGame();
 }
 
 function removeBg() {
@@ -37,6 +35,7 @@ function winScreen() {
   });
   $("#result").text(`Success: ${success}`);
   $("#report").text("WIN"); //Add draw/lose response where appropriate.
+
 }
 
 function loseScreen() {
@@ -52,8 +51,12 @@ function getRandomIntInclusive(min,max) {
   return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
 }
 
+function stopInterval(){
+  clearInterval(myInterval);
+}
+
 function countdown(timer) {
-  let myInterval = setInterval(function () {
+  myInterval = setInterval(function () {
     if(timer >= 0) {
       $("#timer").text(`Timer: ${timer}`);
       timer = timer - 1;
@@ -113,16 +116,19 @@ rps.playGame = function() {
           if ($("#ai i").first().text() == "ROCK") {
             console.log("Draw");
             $("#report").text("DRAW");
+            // stopInterval();
           }
           else if ($("#ai i").first().text() == "PAPER"){
             console.log("You Lose");
             $("#report").text("LOSE");
+            // stopInterval();
             win = false;
           }
           else if ($("#ai i").first().text() == "SCISSORS"){
             console.log("You Win");
             success++; //Increment success
             console.log("Success: " + success);
+            // stopInterval();
             winScreen();
           }
         }
@@ -130,20 +136,23 @@ rps.playGame = function() {
         if ($("#player i").first().text() == "PAPER") {
           console.log("PAPER");
           //Computer Options Below:
-          if ($("#ai i").first().text() == "ROCK") {
-            console.log("You Win");
-            success++;
-            console.log("Success: " + success);
-            winScreen();
+          if ($("#ai i").first().text() == "SCISSORS") {
+            console.log("You Lose");
+            $("#report").text("LOSE");
+            // stopInterval();
+            win = false;
           }
           else if ($("#ai i").first().text() == "PAPER"){
             console.log("Draw");
             $("#report").text("DRAW");
+            // stopInterval();
           }
-          else if ($("#ai i").first().text() == "SCISSORS"){
-            console.log("You Lose");
-            $("#report").text("LOSE");
-            win = false;
+          else if ($("#ai i").first().text() == "ROCK"){
+            console.log("You Win");
+            console.log("Success: " + success);
+            success++;
+            // stopInterval();
+            winScreen();
           }
         }
          //If Player chose SCISSORS
@@ -154,16 +163,19 @@ rps.playGame = function() {
             console.log("You Lose");
             $("#report").text("LOSE");
             win = false;
+            // stopInterval();
           }
           else if ($("#ai i").first().text() == "PAPER"){
             console.log("You Win");
             success++;
             console.log("Success: " + success);
             winScreen();
+            // stopInterval();
           }
           else if ($("#ai i").first().text() == "SCISSORS"){
             console.log("Draw");
             $("#report").text("DRAW");
+            // stopInterval();
           }
         }
       }
