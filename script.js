@@ -19,6 +19,7 @@ function Minigame(name) {
 function playRandomGame() {
   let randomGameIndex = getRandomIntInclusive(0,0);
   gamesArr[randomGameIndex].playGame();
+  if (win == true){return playRandomGame();}
 }
 
 function removeBg() {
@@ -35,7 +36,6 @@ function winScreen() {
   });
   $("#result").text(`Success: ${success}`);
   $("#report").text("WIN"); //Add draw/lose response where appropriate.
-
 }
 
 function loseScreen() {
@@ -202,7 +202,9 @@ rps.endGame = function (interval) {
       clearInterval(removeContent);
     }
     //Call playRandomGame() here
-
+    if (win == true) {
+        playRandomGame();
+      }
   }, runAfterThisManyMs);
 }
 // ------------------- End of RPS ---------------------
