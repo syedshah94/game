@@ -19,7 +19,7 @@ function Minigame(name) {
 function playRandomGame() {
   let randomGameIndex = getRandomIntInclusive(0,0);
   gamesArr[randomGameIndex].playGame();
-  if (win == true){return playRandomGame();}
+  // if (win == true){return playRandomGame();}
 }
 
 function removeBg() {
