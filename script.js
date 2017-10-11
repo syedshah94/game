@@ -60,7 +60,14 @@ function countdown(timer) {
       timer = timer - 1; //Timer will get to zero, but due to 1s delay, it will display 1
       console.log(timer);
     }
-    else {clearInterval(myInterval);}
+    else {clearInterval(myInterval);
+      //If player has no input
+      console.log(" no input timer:" + timer);
+      // rps.endGame();
+      if ($("#player i").first().text() == "" && timer == 0){
+        win = false;
+      }
+    }
   }, 1000);
 }
 
@@ -104,11 +111,6 @@ rps.playGame = function() {
         playerTurn = false; //end of player turn
       }
       //Game Logic:
-      //If player has no input
-      if ($("#player i").first().text() == "" && timer == 0){
-        win = false;
-        console.log("no input");
-      }
       //If Player chose ROCK
       if ($("#player i").first().text() == "ROCK") {
         console.log("ROCK");
