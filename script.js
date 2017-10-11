@@ -206,7 +206,7 @@ rps.endGame = function (interval) {
 $(document).ready(function() {
   //hide game(s) and content:
   $(".rps .hide").hide();
-
+  $(".dontTouch .hide").hide();
 
 
   //User clicks START to begin
