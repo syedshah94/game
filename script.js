@@ -55,15 +55,12 @@ function stopInterval(){
 
 function countdown(timer) {
   myInterval = setInterval(function () {
-    if(timer >= 0) {
-      $("#timer").text(`Timer: ${timer}`);
-      timer = timer - 1;
+    if(timer > 0) {
+      $("#timer").text(`Timer: ${timer - 1}`);
+      timer = timer - 1; //Timer will get to zero, but due to 1s delay, it will display 1
+      console.log(timer);
     }
-    else{
-      console.log("Out of time");
-      clearInterval(myInterval);
-
-    }
+    else {clearInterval(myInterval);}
   }, 1000);
 }
 
@@ -107,6 +104,11 @@ rps.playGame = function() {
         playerTurn = false; //end of player turn
       }
       //Game Logic:
+      //If player has no input
+      if ($("#player i").first().text() == "" && timer == 0){
+        win = false;
+        console.log("no input");
+      }
       //If Player chose ROCK
       if ($("#player i").first().text() == "ROCK") {
         console.log("ROCK");
@@ -114,19 +116,16 @@ rps.playGame = function() {
         if ($("#ai i").first().text() == "ROCK") {
           console.log("Draw");
           $("#report").text("DRAW");
-          // stopInterval();
         }
         else if ($("#ai i").first().text() == "PAPER"){
           console.log("You Lose");
           $("#report").text("LOSE");
-          // stopInterval();
           win = false;
         }
         else if ($("#ai i").first().text() == "SCISSORS"){
           console.log("You Win");
           success++; //Increment success
           console.log("Success: " + success);
-          // stopInterval();
           winScreen();
         }
       }
@@ -137,19 +136,16 @@ rps.playGame = function() {
         if ($("#ai i").first().text() == "SCISSORS") {
           console.log("You Lose");
           $("#report").text("LOSE");
-          // stopInterval();
           win = false;
         }
         else if ($("#ai i").first().text() == "PAPER"){
           console.log("Draw");
           $("#report").text("DRAW");
-          // stopInterval();
         }
         else if ($("#ai i").first().text() == "ROCK"){
           console.log("You Win");
           console.log("Success: " + success);
           success++;
-          // stopInterval();
           winScreen();
         }
       }
@@ -161,19 +157,16 @@ rps.playGame = function() {
           console.log("You Lose");
           $("#report").text("LOSE");
           win = false;
-          // stopInterval();
         }
         else if ($("#ai i").first().text() == "PAPER"){
           console.log("You Win");
           success++;
           console.log("Success: " + success);
           winScreen();
-          // stopInterval();
         }
         else if ($("#ai i").first().text() == "SCISSORS"){
           console.log("Draw");
           $("#report").text("DRAW");
-          // stopInterval();
         }
       }
     });
