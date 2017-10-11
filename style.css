@@ -55,7 +55,7 @@ body{
 
 /*------------------Rock Paper Scissors Stuff------------------*/
 
-/*--------------------Start Button Stuff--------------------*/
+/*----------------------- Button  Stuff----------------------*/
 /*Reference: http://callmenick.com/post/stylish-css-buttons*/
 button {
   display: inline-block;
@@ -102,7 +102,23 @@ button.btn {
   position: relative;
   top: 850px; /*Move to 650px*/
 }
-/*---------------------End Button Stuff----------------------*/
+/*Directly below is code for button game*/
+.dontTouch {
+  position: relative;
+  left: 10%;
+  top: 30%;
+}
+/*------------------------End Button Stuff-------------------------*/
+
+/*------------------Dont Press Button Game Stuff-------------------*/
+#buttonGame {
+  border-radius: 50%;
+  background-color: red;
+  position: absolute;
+  top: 40%;
+  left: 30%;
+}
+/*------------------End - Dont Press Button Game Stuff-------------*/
 
 
 /*---------------------Lose Screen----------------------*/
