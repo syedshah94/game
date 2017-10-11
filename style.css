@@ -116,7 +116,11 @@ button.btn {
   background-color: red;
   position: absolute;
   top: 40%;
+<<<<<<< HEAD
   left: 20%;
+=======
+  left: 30%;
+>>>>>>> 7f9b8fc6a0337effa361316cfec5b08238b4f7ef
 }
 /*------------------End - Dont Press Button Game Stuff-------------*/
 

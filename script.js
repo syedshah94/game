@@ -73,14 +73,13 @@ function countdown(timer) {
 
 //-------------- OOP ---------------------------
 let rps = new Minigame('rps'); //Rock, Papers, Scissors
-let dontPress = new Minigame('dontPress'); //Rock, Papers, Scissors
+let dontPress = new Minigame('dontPress'); //Dont Press Button game
 gamesArr.push(rps);
 gamesArr.push(dontPress);
 
 // ----------------------- Dont Press ------------------
 dontPress.playGame = function () {
   $(".dontTouch .hide").show();
-  countdown(timer); //Game runs while timer not at zero
 
   $(".dontTouch .hide").click(function(event) {
     win = false;
@@ -251,12 +250,5 @@ $(document).ready(function() {
     //Play random game, if won, play another, else lose screen:
     playRandomGame();
   });
-
-
-
-
-  //Now Start Game:
-  //if started = true;
-  //while win = true: keep playing minigame(s), else go to lose screen
 
 });
