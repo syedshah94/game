@@ -44,7 +44,11 @@ If time permits:
 
 ## Skills Used:
 HTML/CSS/JS and JQuery
+
 -Recursion
+
 -Intervals
+
 -Objects (May remove)
+
 -Good coding practices (Comments, good names, function explanations)
