@@ -64,7 +64,7 @@ function stopInterval(){
 
 function countdown(timer) {
   myInterval = setInterval(function () {
-    if(timer > 0) {
+    if(timer >= 1) {
       $("#timer").text(`Timer: ${timer - 1}`);
       timer = timer - 1; //Timer will get to zero, but due to 1s delay, it will display 1
       console.log(timer);
@@ -123,19 +123,28 @@ rps.playGame = function() {
     // Timer handling:
     countdown(timer); //Game runs while timer not at zero
 
+
+    //button clicks:
+    //Left button on click
+    $("#sidebtn1").click(function(event) {
+      $("#rps0").clone().appendTo('#player');
+      $("#player .hide").show();
+    });
+
     $(document).keydown(function playerMoveRPS(e) {
+      //Keyboard input:
       if (playerTurn) { //Condition prevents from keydown() being used more than once
-        if (e.which == 65) {
+        if (e.which == 65) { //A Key
           console.log("A pressed");
           $("#rps0").clone().appendTo('#player');
           $("#player .hide").show();
         }
-        else if (e.which == 83) {
+        else if (e.which == 83) { //W Key
           console.log("S pressed");
           $("#rps1").clone().appendTo('#player');
           $("#player .hide").show();
         }
-        else if (e.which == 68) {
+        else if (e.which == 68) { //D Key
           console.log("D pressed");
           $("#rps2").clone().appendTo('#player');
           $("#player .hide").show();

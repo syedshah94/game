@@ -82,3 +82,9 @@ feel it's a game too boring for any electronic device (unless I can somehow
 make it flashy and fun.)
 3. Add button click features so that game play for RPS is not specifically
 keyboard reliant. This should be a quick fix.
+
+## Issues:
+1. During RPS, if you sort of spam buttons which are not A, S, or D,
+the game will run the scoreboard (success score) multiple times and several
+minigames will run at once. So just enter one key at time, when this is fixed,
+you can go crazy and spam all you like. Thanks.
