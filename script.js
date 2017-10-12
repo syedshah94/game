@@ -2,6 +2,14 @@
 Created By Syed Shah
 Last Update: 10/10/2017
 */
+
+let titanic = new Audio();
+titanic.src = "titanic.mp3";
+
+// let rnm = new Audio();
+// rnm.src = = "r&m.mp3";
+
+
 let win = true; //Keep playin while winning (default is win, so run on default)
 let success = 0; //number of successful wins
 let timer = 3;
@@ -40,6 +48,7 @@ function loseScreen() {
   $("#loseScreen").addClass('loseImg');
   $(".window").css({"background-color": "rgba(9,18,35,1)"});
   $("#loseScreen .scoreboard").text(`Score: ${success}`);
+  titanic.play();
 }
 
 //Will use this to randomly cycle through games based on their id
@@ -60,10 +69,10 @@ function countdown(timer) {
       timer = timer - 1; //Timer will get to zero, but due to 1s delay, it will display 1
       console.log(timer);
     }
-    else {clearInterval(myInterval);
+    else {
+      clearInterval(myInterval);
       //If player has no input
       console.log(" no input timer:" + timer);
-      // rps.endGame();
       if ($("#player i").first().text() == "" && timer == 0){
         win = false;
       }
@@ -83,18 +92,23 @@ dontPress.playGame = function () {
 
   $(".dontTouch .hide").click(function(event) {
     win = false;
+    console.log("You lost because you pressed the button");
+    loseScreen();
+    $(".dontTouch .hide").hide();
   });
-  this.endGame();
+
+  myInterval = setInterval(function(){
+    console.log("after some time...");
+    stopInterval();
+    dontPress.endGame();
+  }, (timer * 1000));
 }
 
 dontPress.endGame = function () {
   $(".dontTouch .hide").hide();
-  if (win == true) {
-      playRandomGame();
-  }
-  else if(win == false) {
-    loseScreen();
-  }
+  success++;
+  console.log("timer is 0 and win is true");
+  playRandomGame();
 }
 // ----------------------- End - Dont Press ------------------
 
